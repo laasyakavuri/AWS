@@ -36,7 +36,7 @@ export default function RSVPModal({ event, onClose }: RSVPModalProps) {
     <AnimatePresence>
       {event && (
         <motion.div
-          className="fixed inset-0 z-[70] flex items-center justify-center p-4"
+          className="fixed inset-0 z-70 flex items-center justify-center p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -94,7 +94,9 @@ export default function RSVPModal({ event, onClose }: RSVPModalProps) {
                 <h3 className="mb-1 font-heading text-lg font-bold text-text-primary">
                   RSVP for Event
                 </h3>
-                <p className="mb-6 text-sm text-text-secondary">{event.title}</p>
+                <p className="mb-6 text-sm text-text-secondary">
+                  {event.title}
+                </p>
 
                 <div className="space-y-4">
                   <input
@@ -110,14 +112,18 @@ export default function RSVPModal({ event, onClose }: RSVPModalProps) {
                     placeholder="Email Address"
                     required
                     value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    onChange={(e) =>
+                      setForm({ ...form, email: e.target.value })
+                    }
                     className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted focus:border-primary focus:outline-none"
                   />
                   <div className="grid grid-cols-2 gap-3">
                     <select
                       required
                       value={form.year}
-                      onChange={(e) => setForm({ ...form, year: e.target.value })}
+                      onChange={(e) =>
+                        setForm({ ...form, year: e.target.value })
+                      }
                       className="rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-text-primary focus:border-primary focus:outline-none"
                     >
                       <option value="">Year</option>
@@ -129,7 +135,9 @@ export default function RSVPModal({ event, onClose }: RSVPModalProps) {
                     <select
                       required
                       value={form.branch}
-                      onChange={(e) => setForm({ ...form, branch: e.target.value })}
+                      onChange={(e) =>
+                        setForm({ ...form, branch: e.target.value })
+                      }
                       className="rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-text-primary focus:border-primary focus:outline-none"
                     >
                       <option value="">Branch</option>
@@ -145,14 +153,16 @@ export default function RSVPModal({ event, onClose }: RSVPModalProps) {
                     type="tel"
                     placeholder="Phone (optional)"
                     value={form.phone}
-                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                    onChange={(e) =>
+                      setForm({ ...form, phone: e.target.value })
+                    }
                     className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted focus:border-primary focus:outline-none"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="mt-6 w-full rounded-xl bg-gradient-to-r from-primary to-primary-hover py-3 font-bold text-text-on-primary transition-shadow hover:shadow-[0_0_20px_rgba(255,153,0,0.3)]"
+                  className="mt-6 w-full rounded-xl bg-linear-to-r from-primary to-primary-hover py-3 font-bold text-text-on-primary transition-shadow hover:shadow-[0_0_20px_rgba(255,153,0,0.3)]"
                 >
                   Confirm RSVP
                 </button>

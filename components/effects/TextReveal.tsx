@@ -1,39 +1,55 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, type Variants } from "framer-motion";
 
 interface TextRevealProps {
   text: string;
   className?: string;
+  wordClassName?: string;
   tag?: "h1" | "h2" | "h3" | "p" | "span";
 }
 
 export default function TextReveal({
   text,
   className = "",
+  wordClassName = "",
   tag: Tag = "h2",
 }: TextRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start 0.9", "start 0.3"],
-  });
+  const inView = useInView(ref, { once: true, amount: 0.5 });
 
   const words = text.split(" ");
+  const containerVariants: Variants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.12,
+      },
+    },
+  };
 
   return (
     <div ref={ref}>
       <Tag className={className}>
+        <motion.span
+          className="inline-block"
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+        >
         {words.map((word, i) => {
-          const start = i / words.length;
-          const end = start + 1 / words.length;
           return (
-            <Word key={`${word}-${i}`} range={[start, end]} progress={scrollYProgress}>
+            <Word
+              key={`${word}-${i}`}
+              className={wordClassName}
+            >
               {word}
             </Word>
           );
         })}
+        </motion.span>
       </Tag>
     </div>
   );
@@ -41,20 +57,32 @@ export default function TextReveal({
 
 function Word({
   children,
-  range,
-  progress,
+  className = "",
 }: {
   children: string;
-  range: [number, number];
-  progress: ReturnType<typeof useScroll>["scrollYProgress"];
+  className?: string;
 }) {
-  const opacity = useTransform(progress, range, [0.15, 1]);
-  const y = useTransform(progress, range, [8, 0]);
+  const wordVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      y: 18,
+      filter: "blur(8px)",
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
 
   return (
     <motion.span
-      className="mr-[0.25em] inline-block"
-      style={{ opacity, y }}
+      variants={wordVariants}
+      className={`mr-[0.25em] inline-block ${className}`}
     >
       {children}
     </motion.span>

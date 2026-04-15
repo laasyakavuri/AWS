@@ -6,9 +6,18 @@ import { loadSlim } from "@tsparticles/slim";
 import type { ISourceOptions } from "@tsparticles/engine";
 import { useTheme } from "@/components/providers/ThemeProvider";
 
-export default function Antigravity() {
+interface AntigravityProps {
+  className?: string;
+  intensity?: "default" | "strong";
+}
+
+export default function Antigravity({
+  className = "",
+  intensity = "default",
+}: AntigravityProps) {
   const [init, setInit] = useState(false);
   const { resolvedTheme } = useTheme();
+  const isStrong = intensity === "strong";
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
@@ -23,15 +32,23 @@ export default function Antigravity() {
       fpsLimit: 60,
       particles: {
         number: {
-          value: 40,
+          value: resolvedTheme === "light" && isStrong ? 56 : 40,
           density: { enable: true },
         },
         color: {
-          value: resolvedTheme === "dark" ? ["#FF9900", "#4DA6FF", "#FFFFFF"] : ["#FF9900", "#6C3FC5", "#232F3E"],
+          value:
+            resolvedTheme === "dark"
+              ? ["#FF9900", "#4DA6FF", "#FFFFFF"]
+              : isStrong
+                ? ["#FF9900", "#58A6FF", "#232F3E"]
+                : ["#FF9900", "#6C3FC5", "#232F3E"],
         },
         shape: { type: "circle" },
         opacity: {
-          value: { min: 0.1, max: 0.4 },
+          value:
+            resolvedTheme === "light" && isStrong
+              ? { min: 0.18, max: 0.55 }
+              : { min: 0.1, max: 0.4 },
           animation: {
             enable: true,
             speed: 1,
@@ -39,7 +56,10 @@ export default function Antigravity() {
           },
         },
         size: {
-          value: { min: 1, max: 4 },
+          value:
+            resolvedTheme === "light" && isStrong
+              ? { min: 1.5, max: 5 }
+              : { min: 1, max: 4 },
           animation: {
             enable: true,
             speed: 2,
@@ -58,8 +78,8 @@ export default function Antigravity() {
           enable: true,
           distance: 150,
           color: resolvedTheme === "dark" ? "#ffffff" : "#232F3E",
-          opacity: 0.05,
-          width: 1,
+          opacity: resolvedTheme === "light" && isStrong ? 0.1 : 0.05,
+          width: resolvedTheme === "light" && isStrong ? 1.2 : 1,
         },
       },
       interactivity: {
@@ -88,7 +108,7 @@ export default function Antigravity() {
       },
       detectRetina: true,
     }),
-    [resolvedTheme]
+    [isStrong, resolvedTheme]
   );
 
   if (!init) return null;
@@ -97,7 +117,7 @@ export default function Antigravity() {
     <Particles
       id={`antigravity-particles-${resolvedTheme}`}
       key={resolvedTheme}
-      className="absolute inset-0 z-0 pointer-events-none"
+      className={`absolute inset-0 z-0 pointer-events-none ${className}`}
       options={options}
     />
   );
