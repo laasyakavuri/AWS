@@ -6,6 +6,7 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 interface MagneticButtonProps {
   children: ReactNode;
   className?: string;
+  style?: React.CSSProperties;
   onClick?: () => void;
   href?: string;
   as?: "button" | "a";
@@ -17,6 +18,7 @@ interface MagneticButtonProps {
 export default function MagneticButton({
   children,
   className = "",
+  style,
   onClick,
   href,
   as = "button",
@@ -57,6 +59,7 @@ export default function MagneticButton({
     >
       <Component
         className={className}
+        style={style}
         onClick={onClick}
         href={href}
         // @ts-ignore

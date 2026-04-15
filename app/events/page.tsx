@@ -113,7 +113,7 @@ export default function EventsPage() {
 
         {/* Event Grid */}
         <motion.div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3" layout>
-          <AnimatePresence mode="wait" initial={false}>
+          <AnimatePresence initial={false}>
             {filtered.map((event) => (
               <motion.div
                 key={event.id}

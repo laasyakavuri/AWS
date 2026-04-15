@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Check } from "lucide-react";
 import type { Event } from "@/lib/data";
@@ -24,13 +24,17 @@ export default function RSVPModal({ event, onClose }: RSVPModalProps) {
     e.preventDefault();
     if (!event) return;
 
-    // Store in localStorage
     const rsvps = JSON.parse(localStorage.getItem("aws-vjit-rsvps") || "{}");
     rsvps[event.id] = { ...form, timestamp: Date.now() };
     localStorage.setItem("aws-vjit-rsvps", JSON.stringify(rsvps));
 
     setSubmitted(true);
   };
+
+  useEffect(() => {
+    setSubmitted(false);
+    setForm({ name: "", email: "", year: "", branch: "", phone: "" });
+  }, [event]);
 
   return (
     <AnimatePresence>
@@ -52,10 +56,10 @@ export default function RSVPModal({ event, onClose }: RSVPModalProps) {
 
           {/* Modal */}
           <motion.div
-            className="relative z-10 w-full max-w-md overflow-hidden rounded-2xl border border-border bg-surface"
-            initial={{ scale: 0.9, opacity: 0 }}
+            className="relative z-10 w-full max-w-md overflow-hidden rounded-2xl border border-white/10 bg-white/10 backdrop-blur-[28px] shadow-2xl"
+            initial={{ scale: 0.92, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
+            exit={{ scale: 0.92, opacity: 0 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
           >
             {/* Close */}
@@ -84,7 +88,7 @@ export default function RSVPModal({ event, onClose }: RSVPModalProps) {
                 </p>
                 <button
                   onClick={onClose}
-                  className="mt-6 rounded-xl bg-primary px-6 py-2 text-sm font-bold text-text-on-primary"
+                  className="mt-6 rounded-xl bg-primary px-6 py-2 text-sm font-bold text-text-on-primary shadow-[0_10px_30px_rgba(88,101,242,0.18)] transition-shadow hover:shadow-[0_12px_40px_rgba(88,101,242,0.24)]"
                 >
                   Done
                 </button>
@@ -162,7 +166,7 @@ export default function RSVPModal({ event, onClose }: RSVPModalProps) {
 
                 <button
                   type="submit"
-                  className="mt-6 w-full rounded-xl bg-linear-to-r from-primary to-primary-hover py-3 font-bold text-text-on-primary transition-shadow hover:shadow-[0_0_20px_rgba(255,153,0,0.3)]"
+                  className="mt-6 w-full rounded-xl bg-primary py-3 font-bold text-text-on-primary transition-shadow hover:shadow-[0_0_20px_rgba(88,101,242,0.24)]"
                 >
                   Confirm RSVP
                 </button>

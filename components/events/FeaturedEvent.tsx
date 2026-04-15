@@ -80,19 +80,19 @@ export default function FeaturedEvent({
 
   return (
     <motion.div
-      className="relative mb-12 overflow-hidden rounded-[28px] border border-white/10 bg-white/4 p-8 shadow-[0_24px_56px_rgba(15,21,32,0.08)] backdrop-blur-[48px] backdrop-saturate-150 md:p-10 dark:border-white/10 dark:bg-white/5 dark:shadow-[0_24px_56px_rgba(0,0,0,0.16)]"
+      className="relative mb-12 overflow-hidden rounded-[28px] border border-[rgba(255,255,255,0.09)] bg-[rgba(255,255,255,0.05)] p-8 shadow-[0_32px_120px_rgba(15,21,32,0.12)] backdrop-blur-[38px] backdrop-saturate-150 md:p-10 dark:border-[rgba(255,255,255,0.08)] dark:bg-[rgba(255,255,255,0.06)] dark:shadow-[0_32px_120px_rgba(0,0,0,0.16)]"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ y: -6 }}
       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.28)_0%,rgba(255,255,255,0.08)_22%,rgba(255,255,255,0.02)_48%,rgba(88,166,255,0.04)_100%)] dark:bg-[linear-gradient(135deg,rgba(255,255,255,0.14)_0%,rgba(255,255,255,0.04)_22%,rgba(255,255,255,0.01)_48%,rgba(88,166,255,0.04)_100%)]" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(255,255,255,0.38),rgba(255,255,255,0))] dark:bg-[linear-gradient(180deg,rgba(255,255,255,0.18),rgba(255,255,255,0))]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.24)_0%,rgba(255,255,255,0.08)_20%,rgba(255,255,255,0.02)_45%,rgba(255,255,255,0)_100%)] dark:bg-[linear-gradient(135deg,rgba(255,255,255,0.14)_0%,rgba(255,255,255,0.06)_20%,rgba(255,255,255,0.015)_45%,rgba(255,255,255,0)_100%)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(255,255,255,0.28),rgba(255,255,255,0))] dark:bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0))]" />
       <div
         className="pointer-events-none absolute -left-8 top-0 h-40 w-40 rounded-full blur-3xl"
-        style={{ backgroundColor: `${eventColor}22` }}
+        style={{ backgroundColor: `${eventColor}18` }}
       />
-      <div className="pointer-events-none absolute right-0 top-10 h-48 w-48 rounded-full bg-white/24 blur-3xl dark:bg-white/5" />
+      <div className="pointer-events-none absolute right-0 top-10 h-48 w-48 rounded-full bg-white/12 blur-3xl dark:bg-white/10" />
 
       <div className="relative z-10 grid gap-8 xl:grid-cols-[minmax(0,1.45fr)_360px]">
         <div className="flex flex-col">
@@ -125,7 +125,7 @@ export default function FeaturedEvent({
             {quickFacts.map(({ icon: Icon, label, value }) => (
               <div
                 key={label}
-                className="glass flex items-start gap-3 rounded-2xl border border-white/10 bg-white/4 px-4 py-3 shadow-[0_10px_24px_rgba(15,21,32,0.05)] backdrop-blur-2xl"
+                className="glass flex items-start gap-3 rounded-2xl border border-white/10 bg-white/12 px-4 py-3 shadow-[0_10px_24px_rgba(15,21,32,0.05)] backdrop-blur-2xl"
               >
                 <div
                   className="mt-0.5 flex h-10 w-10 items-center justify-center rounded-xl"
@@ -148,7 +148,7 @@ export default function FeaturedEvent({
             ))}
           </div>
 
-          <div className="mt-8 rounded-[24px] border border-white/10 bg-white/4 p-5 shadow-[0_18px_40px_rgba(15,21,32,0.08)] backdrop-blur-[44px] backdrop-saturate-150 dark:border-white/10 dark:bg-white/5 dark:shadow-[0_18px_40px_rgba(0,0,0,0.14)]">
+          <div className="mt-8 rounded-[24px] border border-white/10 bg-white/12 p-5 shadow-[0_18px_40px_rgba(15,21,32,0.08)] backdrop-blur-[44px] backdrop-saturate-150 dark:border-white/10 dark:bg-white/10 dark:shadow-[0_18px_40px_rgba(0,0,0,0.14)]">
             <div className="mb-3 flex items-center justify-between gap-4">
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
@@ -183,8 +183,7 @@ export default function FeaturedEvent({
                 className="h-full rounded-full transition-all duration-700"
                 style={{
                   width: `${seatPercent}%`,
-                  background:
-                    "linear-gradient(90deg, #6C3FC5, #8B5CF6 58%, #A78BFA)",
+                  background: `linear-gradient(90deg, ${eventColor}33, ${eventColor}AA)`,
                 }}
               />
             </div>
@@ -193,7 +192,10 @@ export default function FeaturedEvent({
           <div className="mt-6 flex flex-wrap items-center gap-4">
             <MagneticButton
               onClick={() => onRSVP(event)}
-              className="shimmer-btn rounded-2xl bg-linear-to-r from-[#6C3FC5] via-[#8B5CF6] to-[#A78BFA] px-8 py-3.5 font-bold text-text-on-primary shadow-[0_18px_40px_rgba(124,58,237,0.22)]"
+              className="shimmer-btn rounded-2xl px-8 py-3.5 font-bold text-text-on-primary shadow-[0_18px_40px_rgba(15,21,32,0.16)]"
+              style={{
+                backgroundImage: `linear-gradient(90deg, ${eventColor}DD, ${eventColor}AA)`,
+              }}
             >
               <span className="inline-flex items-center gap-2">
                 Register Now
@@ -217,11 +219,11 @@ export default function FeaturedEvent({
           <div className="relative z-10">
             <div className="mb-5 flex items-center justify-between">
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-primary">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
                   Countdown
                 </p>
                 <p className="mt-1 text-lg font-semibold text-text-primary">
-                  Event starts in...
+                  Event starts soon
                 </p>
               </div>
               <span
@@ -239,7 +241,7 @@ export default function FeaturedEvent({
               {Object.entries(countdown).map(([label, value]) => (
                 <motion.div
                   key={label}
-                  className="rounded-2xl border border-white/10 bg-white/4 px-4 py-4 text-center shadow-[0_10px_24px_rgba(15,21,32,0.06)] backdrop-blur-[42px] backdrop-saturate-150 dark:border-white/10 dark:bg-white/5 dark:shadow-[0_10px_24px_rgba(0,0,0,0.10)]"
+                  className="rounded-2xl border border-white/10 bg-white/12 px-4 py-4 text-center shadow-[0_10px_24px_rgba(15,21,32,0.06)] backdrop-blur-[42px] backdrop-saturate-150 dark:border-white/10 dark:bg-white/10 dark:shadow-[0_10px_24px_rgba(0,0,0,0.10)]"
                   whileHover={{ y: -4, scale: 1.02 }}
                   transition={{ duration: 0.2 }}
                 >
